@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <script src="https://unpkg.com/htmx.org@1.8.4"></script>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <!-- Add tasks here -->
+    <form hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
+        <input type="text" name="task" placeholder="Create new task" required>
+        <button type="submit">Create Task</button>
+    </form>
+
+    <!-- Task list that gets updated -->
+    <ul id="task-list" hx-get="/tasks" hx-trigger="load" hx-swap="innerHTML">
+        <!-- Tasks will appear here... -->
+    </ul>
+
+    <!-- Load tasks on page load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            htmx.trigger(htmx.find('#task-list'), 'load');
+        });
+    </script>
+</body>
+</html>
+
